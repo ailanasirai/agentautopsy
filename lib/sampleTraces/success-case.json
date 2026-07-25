@@ -1,0 +1,45 @@
+{
+  "agent_name": "TravelPlanner",
+  "framework": "n8n",
+  "expected_outcome": "Find a flight from Lahore to Istanbul under $500 and return options.",
+  "final_output": "Found 3 flights under $500. Cheapest: Lahore-Istanbul, $410, Turkish Airlines.",
+  "steps": [
+    {
+      "step_number": 1,
+      "type": "llm_call",
+      "timestamp": "2026-07-24T09:00:01Z",
+      "input": "User wants flights from Lahore to Istanbul under $500.",
+      "output": "I will search flight options.",
+      "duration_ms": 410,
+      "status": "success"
+    },
+    {
+      "step_number": 2,
+      "type": "tool_call",
+      "timestamp": "2026-07-24T09:00:02Z",
+      "tool_name": "search_flights",
+      "input": "{\"from\": \"LHE\", \"to\": \"IST\", \"max_price\": 500}",
+      "output": "[3 flights found, cheapest $410]",
+      "duration_ms": 900,
+      "status": "success"
+    },
+    {
+      "step_number": 3,
+      "type": "decision",
+      "timestamp": "2026-07-24T09:00:04Z",
+      "input": "Flights retrieved. Compose final answer.",
+      "output": "Found 3 flights under $500. Cheapest: Lahore-Istanbul, $410, Turkish Airlines.",
+      "duration_ms": 350,
+      "status": "success"
+    },
+    {
+      "step_number": 4,
+      "type": "output",
+      "timestamp": "2026-07-24T09:00:05Z",
+      "input": "Final answer ready.",
+      "output": "Found 3 flights under $500. Cheapest: Lahore-Istanbul, $410, Turkish Airlines.",
+      "duration_ms": 20,
+      "status": "success"
+    }
+  ]
+}

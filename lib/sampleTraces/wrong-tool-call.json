@@ -1,0 +1,55 @@
+{
+  "agent_name": "SupportBot",
+  "framework": "custom",
+  "expected_outcome": "Look up order #4521 status and reply to the customer.",
+  "final_output": "Error: could not retrieve order status.",
+  "steps": [
+    {
+      "step_number": 1,
+      "type": "llm_call",
+      "timestamp": "2026-07-24T11:00:01Z",
+      "input": "Customer asks: what is the status of order #4521?",
+      "output": "I will check the order database.",
+      "duration_ms": 500,
+      "status": "success"
+    },
+    {
+      "step_number": 2,
+      "type": "tool_call",
+      "timestamp": "2026-07-24T11:00:02Z",
+      "tool_name": "get_customer_profile",
+      "input": "{\"order_id\": \"4521\"}",
+      "output": "Error: get_customer_profile expects a customer_id, not order_id.",
+      "duration_ms": 210,
+      "status": "error"
+    },
+    {
+      "step_number": 3,
+      "type": "llm_call",
+      "timestamp": "2026-07-24T11:00:03Z",
+      "input": "Tool returned an error. Decide next action.",
+      "output": "Let me try the profile tool again with a different format.",
+      "duration_ms": 480,
+      "status": "retry"
+    },
+    {
+      "step_number": 4,
+      "type": "tool_call",
+      "timestamp": "2026-07-24T11:00:04Z",
+      "tool_name": "get_customer_profile",
+      "input": "{\"order_id\": \"#4521\"}",
+      "output": "Error: get_customer_profile expects a customer_id, not order_id.",
+      "duration_ms": 205,
+      "status": "error"
+    },
+    {
+      "step_number": 5,
+      "type": "output",
+      "timestamp": "2026-07-24T11:00:05Z",
+      "input": "Giving up after repeated tool errors.",
+      "output": "Error: could not retrieve order status.",
+      "duration_ms": 40,
+      "status": "error"
+    }
+  ]
+}

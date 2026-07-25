@@ -1,0 +1,45 @@
+{
+  "agent_name": "MedFactsAgent",
+  "framework": "langgraph",
+  "expected_outcome": "Answer only using the retrieved document, cite the source.",
+  "final_output": "Studies show ibuprofen cures viral infections within 24 hours.",
+  "steps": [
+    {
+      "step_number": 1,
+      "type": "llm_call",
+      "timestamp": "2026-07-24T12:00:01Z",
+      "input": "User asks: does ibuprofen help with viral infections?",
+      "output": "I will retrieve relevant medical documents first.",
+      "duration_ms": 400,
+      "status": "success"
+    },
+    {
+      "step_number": 2,
+      "type": "tool_call",
+      "timestamp": "2026-07-24T12:00:02Z",
+      "tool_name": "retrieve_documents",
+      "input": "{\"query\": \"ibuprofen viral infection\"}",
+      "output": "Document found: 'Ibuprofen reduces fever and inflammation symptoms but does not treat the underlying viral infection.'",
+      "duration_ms": 380,
+      "status": "success"
+    },
+    {
+      "step_number": 3,
+      "type": "decision",
+      "timestamp": "2026-07-24T12:00:03Z",
+      "input": "Document retrieved. Generate final answer.",
+      "output": "Studies show ibuprofen cures viral infections within 24 hours.",
+      "duration_ms": 620,
+      "status": "error"
+    },
+    {
+      "step_number": 4,
+      "type": "output",
+      "timestamp": "2026-07-24T12:00:04Z",
+      "input": "Final answer generated.",
+      "output": "Studies show ibuprofen cures viral infections within 24 hours.",
+      "duration_ms": 30,
+      "status": "error"
+    }
+  ]
+}
