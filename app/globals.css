@@ -38,10 +38,73 @@
   --warning-glow: rgba(251, 191, 36, 0.4);
 }
 
+html, body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+}
+
 body {
   background: var(--bg-primary);
   color: var(--text-primary);
   transition: background 0.3s ease, color 0.3s ease;
+  min-height: 100%;
+}
+
+h1, h2, h3 {
+  font-family: inherit;
+  letter-spacing: -0.02em;
+}
+
+.hero-glow-text {
+  text-shadow: 0 0 40px var(--accent-glow);
+}
+
+/* Ambient background orbs for the landing page */
+.ambient-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+}
+
+@keyframes drift-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, -30px) scale(1.1); }
+}
+
+@keyframes drift-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-50px, 40px) scale(1.15); }
+}
+
+.orb-1 {
+  width: 420px;
+  height: 420px;
+  background: var(--accent);
+  top: -10%;
+  left: 5%;
+  animation: drift-1 12s ease-in-out infinite;
+}
+
+.orb-2 {
+  width: 380px;
+  height: 380px;
+  background: var(--success);
+  bottom: -10%;
+  right: 8%;
+  animation: drift-2 14s ease-in-out infinite;
+}
+
+.upload-ambient {
+  box-shadow: 0 0 0 1px var(--border), 0 8px 40px -12px var(--accent-glow);
 }
 
 .glow-danger {

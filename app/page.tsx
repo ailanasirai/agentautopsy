@@ -9,6 +9,18 @@ import ErrorState from "@/components/states/ErrorState";
 import ResultsDashboard from "@/components/analysis/ResultsDashboard";
 import { FullReport } from "@/types/trace";
 
+import loopFailureTrace from "@/lib/sampleTraces/loop-failure.json";
+import wrongToolCallTrace from "@/lib/sampleTraces/wrong-tool-call.json";
+import hallucinationTrace from "@/lib/sampleTraces/hallucination.json";
+import successCaseTrace from "@/lib/sampleTraces/success-case.json";
+
+const DEMO_TRACES: Record<string, unknown> = {
+  "loop-failure": loopFailureTrace,
+  "wrong-tool-call": wrongToolCallTrace,
+  hallucination: hallucinationTrace,
+  "success-case": successCaseTrace,
+};
+
 type Stage = "upload" | "loading" | "results" | "error";
 
 export default function Home() {
@@ -39,13 +51,13 @@ export default function Home() {
   }
 
   async function loadDemo(id: string) {
-    try {
-      const mod = await import(`@/lib/sampleTraces/${id}.json`);
-      analyzeTrace(mod.default);
-    } catch {
+    const trace = DEMO_TRACES[id];
+    if (!trace) {
       setErrorMsg("Couldn't load that demo trace.");
       setStage("error");
+      return;
     }
+    analyzeTrace(trace);
   }
 
   function reset() {
@@ -54,7 +66,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-64px)] flex flex-col">
+    <div className="min-h-[calc(100vh-64px)] flex flex-col relative">
       <AnimatePresence mode="wait">
         {stage === "upload" && (
           <motion.div
@@ -62,27 +74,50 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="flex-1 flex flex-col items-center justify-center px-6 py-16"
+            className="flex-1 flex flex-col items-center justify-center px-6 py-16 relative"
           >
-            <div className="max-w-xl w-full text-center mb-10">
-              <h1 className="text-3xl font-medium mb-3">
-                Find out why your AI agent failed
+            <div className="ambient-bg">
+              <div className="ambient-orb orb-1" />
+              <div className="ambient-orb orb-2" />
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="max-w-xl w-full text-center mb-10 relative z-10"
+            >
+              <h1 className="text-4xl md:text-5xl font-medium mb-4 hero-glow-text">
+                Find out why your{" "}
+                <span style={{ color: "var(--accent)" }}>AI agent</span>{" "}
+                failed
               </h1>
-              <p style={{ color: "var(--text-secondary)" }}>
+              <p
+                className="text-base md:text-lg"
+                style={{ color: "var(--text-secondary)" }}
+              >
                 Upload an execution trace and get a forensic diagnosis: root
                 cause, confidence, and a concrete fix — in seconds.
               </p>
-            </div>
-            <div className="max-w-xl w-full">
-              <UploadZone
-                onFileLoaded={analyzeTrace}
-                onError={(m) => {
-                  setErrorMsg(m);
-                  setStage("error");
-                }}
-              />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="max-w-xl w-full relative z-10"
+            >
+              <div className="upload-ambient rounded-2xl">
+                <UploadZone
+                  onFileLoaded={analyzeTrace}
+                  onError={(m) => {
+                    setErrorMsg(m);
+                    setStage("error");
+                  }}
+                />
+              </div>
               <DemoTraceSelector onSelect={loadDemo} />
-            </div>
+            </motion.div>
           </motion.div>
         )}
 
