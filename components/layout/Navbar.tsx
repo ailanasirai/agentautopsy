@@ -12,9 +12,15 @@ export default function Navbar() {
       className="flex items-center justify-between px-6 py-4 border-b"
       style={{ borderColor: "var(--border)" }}
     >
-      <Link href="/" className="flex items-center gap-2">
-        <Stethoscope size={20} style={{ color: "var(--accent)" }} />
-        <span className="font-medium text-[15px]">agentautopsy</span>
+      <Link
+        href="/"
+        className="flex items-center gap-2.5 no-underline"
+        style={{ color: "var(--text-primary)" }}
+      >
+        <Stethoscope size={26} style={{ color: "var(--accent)" }} />
+        <span className="font-bold text-[22px] tracking-tight">
+          agentautopsy
+        </span>
       </Link>
       <button
         onClick={toggleTheme}

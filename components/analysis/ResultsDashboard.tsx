@@ -2,13 +2,70 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Download, Share2, RotateCcw, Check } from "lucide-react";
+import { Download, Share2, ArrowLeft, Check } from "lucide-react";
 import { FullReport } from "@/types/trace";
 import HealthScoreGauge from "./HealthScoreGauge";
 import RootCauseCard from "./RootCauseCard";
 import Timeline from "./Timeline";
 import AnomalyHeatmap from "./AnomalyHeatmap";
 import ExplainabilityPanel from "./ExplainabilityPanel";
+
+function ActionButton({
+  onClick,
+  disabled,
+  icon,
+  label,
+}: {
+  onClick: () => void;
+  disabled?: boolean;
+  icon: React.ReactNode;
+  label: string;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg border text-sm transition-all hover:-translate-y-0.5"
+      style={{
+        borderColor: "var(--border)",
+        color: "var(--text-primary)",
+        background: "var(--bg-card)",
+      }}
+    >
+      {icon} {label}
+    </button>
+  );
+}
+
+function Section({
+  title,
+  children,
+  delay = 0,
+}: {
+  title?: string;
+  children: React.ReactNode;
+  delay?: number;
+}) {
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.5, delay }}
+      className="mb-16 md:mb-20"
+    >
+      {title && (
+        <h2
+          className="text-sm font-semibold tracking-wide uppercase mb-4"
+          style={{ color: "var(--text-secondary)" }}
+        >
+          {title}
+        </h2>
+      )}
+      {children}
+    </motion.section>
+  );
+}
 
 export default function ResultsDashboard({
   report,
@@ -82,58 +139,64 @@ export default function ResultsDashboard({
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-6 py-10">
-      <div className="flex items-center justify-between mb-6">
+    <div className="max-w-4xl mx-auto px-6 py-14 md:py-20">
+      {/* Header */}
+      <div className="flex flex-wrap items-center justify-between gap-4 mb-16 md:mb-20">
         <div>
-          <h1 className="text-xl font-medium">{report.trace.agent_name}</h1>
-          <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
+          <h1 className="text-2xl font-bold tracking-tight">
+            {report.trace.agent_name}
+          </h1>
+          <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>
             {report.trace.framework}
           </p>
         </div>
-        <div className="flex gap-2">
-          {!readOnly && (
-            <>
-              <button
-                onClick={handleExportPdf}
-                disabled={exporting}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-lg border text-sm"
-                style={{ borderColor: "var(--border)" }}
-              >
-                <Download size={14} /> Export PDF
-              </button>
-              <button
-                onClick={handleShare}
-                disabled={sharing}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-lg border text-sm"
-                style={{ borderColor: "var(--border)" }}
-              >
-                {shareUrl ? <Check size={14} /> : <Share2 size={14} />}
-                {shareUrl ? "Link copied" : "Share"}
-              </button>
-              {onReset && (
-                <button
-                  onClick={onReset}
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg border text-sm"
-                  style={{ borderColor: "var(--border)" }}
-                >
-                  <RotateCcw size={14} /> New analysis
-                </button>
-              )}
-            </>
-          )}
+        {!readOnly && (
+          <div className="flex flex-wrap gap-2">
+            <ActionButton
+              onClick={handleExportPdf}
+              disabled={exporting}
+              icon={<Download size={14} />}
+              label="Export PDF"
+            />
+            <ActionButton
+              onClick={handleShare}
+              disabled={sharing}
+              icon={shareUrl ? <Check size={14} /> : <Share2 size={14} />}
+              label={shareUrl ? "Link copied" : "Share"}
+            />
+            {onReset && (
+              <ActionButton
+                onClick={onReset}
+                icon={<ArrowLeft size={14} />}
+                label="Back to upload"
+              />
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Root cause + health score */}
+      <Section title="Diagnosis">
+        <div className="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-6">
+          <HealthScoreGauge score={report.analysis.health_score} />
+          <RootCauseCard analysis={report.analysis} />
         </div>
-      </div>
+      </Section>
 
-      <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-4 mb-4">
-        <HealthScoreGauge score={report.analysis.health_score} />
-        <RootCauseCard analysis={report.analysis} />
-      </div>
-
-      <div className="flex flex-col gap-4">
+      {/* Timeline */}
+      <Section title="Execution timeline" delay={0.05}>
         <Timeline steps={report.trace.steps} />
+      </Section>
+
+      {/* Heatmap */}
+      <Section title="Anomaly heatmap" delay={0.1}>
         <AnomalyHeatmap scores={report.analysis.anomaly_scores} />
+      </Section>
+
+      {/* Explainability */}
+      <Section title="AI reasoning" delay={0.15}>
         <ExplainabilityPanel chain={report.analysis.reasoning_chain} />
-      </div>
+      </Section>
     </div>
   );
 }

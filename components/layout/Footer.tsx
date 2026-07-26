@@ -3,7 +3,7 @@ import { ExternalLink, Stethoscope } from "lucide-react";
 export default function Footer() {
   return (
     <footer
-      className="border-t px-6 py-8 flex flex-col items-center justify-center gap-3 text-sm text-center"
+      className="border-t px-6 py-8 mt-4 flex flex-col items-center justify-center gap-3 text-sm text-center"
       style={{ borderColor: "var(--border)", color: "var(--text-secondary)" }}
     >
       <div className="flex items-center gap-2">

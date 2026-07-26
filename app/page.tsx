@@ -121,7 +121,7 @@ export default function Home() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
-                className="flex flex-wrap justify-center gap-2 mt-8"
+                className="flex flex-wrap justify-center gap-2 mt-8 mb-12"
               >
                 <span className="trust-badge">🔒 Secure upload</span>
                 <span className="trust-badge">⚡ Fast analysis</span>

@@ -54,7 +54,7 @@ export default function DemoTraceSelector({
             whileTap={{ scale: 0.97 }}
             onClick={() => onSelect(demo.id)}
             className="glass-card flex items-center gap-2 px-4 py-2.5 rounded-full border text-sm font-medium"
-            style={{ borderColor: "var(--border)" }}
+            style={{ borderColor: "var(--border)", color: "var(--text-primary)" }}
           >
             <demo.icon size={15} style={{ color: demo.color }} />
             {demo.label}

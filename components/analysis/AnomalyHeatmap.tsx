@@ -12,7 +12,7 @@ function deviationColor(deviation: number): string {
 export default function AnomalyHeatmap({ scores }: { scores: AnomalyScore[] }) {
   return (
     <div
-      className="rounded-2xl border p-6"
+      className="rounded-2xl border p-6 transition-all hover:shadow-lg hover:-translate-y-0.5"
       style={{ borderColor: "var(--border)", background: "var(--bg-card)" }}
     >
       <span className="text-sm block mb-4" style={{ color: "var(--text-secondary)" }}>
