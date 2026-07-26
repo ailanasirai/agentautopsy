@@ -4,6 +4,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import UploadZone from "@/components/upload/UploadZone";
 import DemoTraceSelector from "@/components/upload/DemoTraceSelector";
+import HowItWorks from "@/components/landing/HowItWorks";
+import KeyFeatures from "@/components/landing/KeyFeatures";
 import LoadingState from "@/components/states/LoadingState";
 import ErrorState from "@/components/states/ErrorState";
 import ResultsDashboard from "@/components/analysis/ResultsDashboard";
@@ -134,13 +136,21 @@ export default function Home() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
-              className="flex flex-wrap justify-center gap-2 relative z-10"
+              className="flex flex-wrap justify-center gap-2 relative z-10 mb-24 md:mb-32"
             >
-              <span className="trust-badge">🔒 Secure upload</span>
-              <span className="trust-badge">⚡ Fast analysis</span>
-              <span className="trust-badge">🤖 AI-powered diagnosis</span>
-              <span className="trust-badge">🛡 Privacy first</span>
+              <span className="trust-badge">Secure upload</span>
+              <span className="trust-badge">Fast analysis</span>
+              <span className="trust-badge">AI-powered diagnosis</span>
+              <span className="trust-badge">Privacy first</span>
             </motion.div>
+
+            <div className="w-full mb-24 md:mb-32 relative z-10">
+              <HowItWorks />
+            </div>
+
+            <div className="w-full relative z-10">
+              <KeyFeatures />
+            </div>
           </motion.div>
         )}
 
