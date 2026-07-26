@@ -48,10 +48,10 @@ export default function UploadZone({ onFileLoaded, onError }: UploadZoneProps) {
         borderColor: isDragging ? "var(--accent)" : "var(--border)",
         boxShadow: isDragging
           ? "0 0 32px var(--accent-glow)"
-          : "0 0 0px transparent",
+          : "0 8px 30px -12px rgba(0,0,0,0.3)",
       }}
-      className="relative rounded-2xl border-2 border-dashed p-12 text-center cursor-pointer transition-colors"
-      style={{ background: "var(--bg-card)" }}
+      whileHover={{ y: -2 }}
+      className="glass-card relative rounded-2xl border-2 border-dashed p-12 text-center cursor-pointer transition-colors min-h-[280px] flex items-center justify-center"
       onClick={() => document.getElementById("trace-file-input")?.click()}
     >
       <input
@@ -66,21 +66,27 @@ export default function UploadZone({ onFileLoaded, onError }: UploadZoneProps) {
       />
       <motion.div
         animate={{ y: isDragging ? -4 : 0 }}
-        className="flex flex-col items-center gap-3"
+        className="flex flex-col items-center gap-4"
       >
-        {fileName ? (
-          <FileJson size={36} style={{ color: "var(--accent)" }} />
-        ) : (
-          <UploadCloud size={36} style={{ color: "var(--text-secondary)" }} />
-        )}
-        <p className="font-medium text-[15px]">
-          {fileName ? fileName : "Drop your agent trace here"}
+        <div className="float-icon">
+          {fileName ? (
+            <FileJson size={56} style={{ color: "var(--accent)" }} />
+          ) : (
+            <UploadCloud size={56} style={{ color: "var(--accent)" }} />
+          )}
+        </div>
+        <p className="font-semibold text-xl">
+          {fileName ? fileName : "Drop your execution trace here"}
         </p>
-        <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
-          {fileName
-            ? "Click to choose a different file"
-            : "or click to browse — .json format"}
-        </p>
+        <div className="flex items-center gap-2">
+          <span
+            className="text-sm"
+            style={{ color: "var(--text-secondary)" }}
+          >
+            {fileName ? "Click to choose a different file" : "or click to browse"}
+          </span>
+          <span className="json-badge">.json</span>
+        </div>
       </motion.div>
     </motion.div>
   );

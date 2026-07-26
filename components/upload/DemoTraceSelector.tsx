@@ -50,14 +50,11 @@ export default function DemoTraceSelector({
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.08 }}
-            whileHover={{ scale: 1.04, y: -2 }}
-            whileTap={{ scale: 0.98 }}
+            whileHover={{ scale: 1.05, y: -3 }}
+            whileTap={{ scale: 0.97 }}
             onClick={() => onSelect(demo.id)}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg border text-sm"
-            style={{
-              borderColor: "var(--border)",
-              background: "var(--bg-card)",
-            }}
+            className="glass-card flex items-center gap-2 px-4 py-2.5 rounded-full border text-sm font-medium"
+            style={{ borderColor: "var(--border)" }}
           >
             <demo.icon size={15} style={{ color: demo.color }} />
             {demo.label}

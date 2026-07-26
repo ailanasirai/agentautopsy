@@ -3,7 +3,7 @@ import { ExternalLink, Stethoscope } from "lucide-react";
 export default function Footer() {
   return (
     <footer
-      className="border-t px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-3 text-sm"
+      className="border-t px-6 py-8 flex flex-col items-center justify-center gap-3 text-sm text-center"
       style={{ borderColor: "var(--border)", color: "var(--text-secondary)" }}
     >
       <div className="flex items-center gap-2">
@@ -14,7 +14,7 @@ export default function Footer() {
         href="https://github.com/ailanasirai/agentautopsy"
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center gap-1.5 hover:opacity-80 transition-opacity"
+        className="flex items-center gap-1.5 hover:opacity-80 hover:underline transition-opacity"
       >
         <ExternalLink size={14} />
         View source on GitHub

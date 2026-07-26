@@ -87,14 +87,13 @@ export default function Home() {
               transition={{ duration: 0.6 }}
               className="max-w-xl w-full text-center mb-10 relative z-10"
             >
-              <h1 className="text-4xl md:text-5xl font-medium mb-4 hero-glow-text">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 tracking-tight">
                 Find out why your{" "}
-                <span style={{ color: "var(--accent)" }}>AI agent</span>{" "}
-                failed
+                <span className="gradient-text">AI agent</span> failed
               </h1>
               <p
-                className="text-base md:text-lg"
-                style={{ color: "var(--text-secondary)" }}
+                className="text-base md:text-lg max-w-xl mx-auto"
+                style={{ color: "var(--text-secondary)", lineHeight: 1.7 }}
               >
                 Upload an execution trace and get a forensic diagnosis: root
                 cause, confidence, and a concrete fix — in seconds.
@@ -117,6 +116,18 @@ export default function Home() {
                 />
               </div>
               <DemoTraceSelector onSelect={loadDemo} />
+
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+                className="flex flex-wrap justify-center gap-2 mt-8"
+              >
+                <span className="trust-badge">🔒 Secure upload</span>
+                <span className="trust-badge">⚡ Fast analysis</span>
+                <span className="trust-badge">🤖 AI-powered diagnosis</span>
+                <span className="trust-badge">🛡 Privacy first</span>
+              </motion.div>
             </motion.div>
           </motion.div>
         )}

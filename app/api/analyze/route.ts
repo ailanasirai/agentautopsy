@@ -22,16 +22,7 @@ export async function POST(req: NextRequest) {
     const health_score = calculateHealthScore(trace);
     const anomaly_scores = computeAnomalyScores(trace);
 
-    let diagnosis;
-    try {
-      diagnosis = await getDiagnosis(trace);
-    } catch (err) {
-      console.error("Gemini diagnosis failed:", err);
-      return NextResponse.json(
-        { error: "AI diagnosis failed. Please try again in a moment." },
-        { status: 502 }
-      );
-    }
+    const diagnosis = await getDiagnosis(trace);
 
     const step_verdicts = trace.steps.map((s) => ({
       step_number: s.step_number,
