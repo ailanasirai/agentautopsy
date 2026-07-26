@@ -56,7 +56,7 @@ function Section({
     >
       {title && (
         <h2
-          className="text-sm font-semibold tracking-wide uppercase mb-4"
+          className="text-sm font-semibold tracking-wide uppercase mb-6"
           style={{ color: "var(--text-secondary)" }}
         >
           {title}

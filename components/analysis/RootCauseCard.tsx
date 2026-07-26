@@ -20,7 +20,7 @@ export default function RootCauseCard({ analysis }: { analysis: AnalysisResult }
       initial={{ opacity: 0, y: 12, scale: 0.97 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.4 }}
-      className={`rounded-2xl border p-6 flex-1 ${
+      className={`rounded-2xl border p-8 flex-1 ${
         isCritical ? "animate-pulse-danger" : "glow-success"
       }`}
       style={{

@@ -74,20 +74,21 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="flex-1 flex flex-col items-center justify-center px-6 py-16 relative"
+            className="flex-1 flex flex-col items-center px-6 py-20 md:py-28 relative"
           >
             <div className="ambient-bg">
               <div className="ambient-orb orb-1" />
               <div className="ambient-orb orb-2" />
             </div>
 
+            {/* Hero */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="max-w-xl w-full text-center mb-10 relative z-10"
+              className="max-w-2xl w-full text-center mb-16 md:mb-20 relative z-10"
             >
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 tracking-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 tracking-tight leading-tight">
                 Find out why your{" "}
                 <span className="gradient-text">AI agent</span> failed
               </h1>
@@ -100,11 +101,12 @@ export default function Home() {
               </p>
             </motion.div>
 
+            {/* Upload */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.15 }}
-              className="max-w-xl w-full relative z-10"
+              className="max-w-xl w-full relative z-10 mb-16 md:mb-20"
             >
               <div className="upload-ambient rounded-2xl">
                 <UploadZone
@@ -115,19 +117,29 @@ export default function Home() {
                   }}
                 />
               </div>
-              <DemoTraceSelector onSelect={loadDemo} />
+            </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
-                className="flex flex-wrap justify-center gap-2 mt-8 mb-12"
-              >
-                <span className="trust-badge">🔒 Secure upload</span>
-                <span className="trust-badge">⚡ Fast analysis</span>
-                <span className="trust-badge">🤖 AI-powered diagnosis</span>
-                <span className="trust-badge">🛡 Privacy first</span>
-              </motion.div>
+            {/* Samples */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.25 }}
+              className="max-w-xl w-full relative z-10 mb-16 md:mb-20"
+            >
+              <DemoTraceSelector onSelect={loadDemo} />
+            </motion.div>
+
+            {/* Trust signals */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="flex flex-wrap justify-center gap-2 relative z-10"
+            >
+              <span className="trust-badge">🔒 Secure upload</span>
+              <span className="trust-badge">⚡ Fast analysis</span>
+              <span className="trust-badge">🤖 AI-powered diagnosis</span>
+              <span className="trust-badge">🛡 Privacy first</span>
             </motion.div>
           </motion.div>
         )}

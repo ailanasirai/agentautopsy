@@ -9,7 +9,7 @@ export default function ExplainabilityPanel({ chain }: { chain: string[] }) {
 
   return (
     <div
-      className="rounded-2xl border p-6 transition-all hover:shadow-lg hover:-translate-y-0.5"
+      className="rounded-2xl border p-8 transition-all hover:shadow-lg hover:-translate-y-0.5"
       style={{ borderColor: "var(--border)", background: "var(--bg-card)" }}
     >
       <button

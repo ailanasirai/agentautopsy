@@ -31,7 +31,7 @@ export default function HealthScoreGauge({ score }: { score: number }) {
 
   return (
     <div
-      className="rounded-2xl border p-6 flex flex-col items-center gap-3 transition-all hover:shadow-lg hover:-translate-y-0.5"
+      className="rounded-2xl border p-8 flex flex-col items-center gap-3 transition-all hover:shadow-lg hover:-translate-y-0.5"
       style={{ borderColor: "var(--border)", background: "var(--bg-card)" }}
     >
       <span className="text-sm" style={{ color: "var(--text-secondary)" }}>
