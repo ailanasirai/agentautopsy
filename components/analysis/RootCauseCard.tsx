@@ -50,15 +50,16 @@ export default function RootCauseCard({ analysis }: { analysis: AnalysisResult }
                 : "No critical failure detected"}
             </span>
           </div>
-          <div className="flex gap-2">
+          <div className="flex items-center gap-3">
             <span
-              className="text-xs font-medium px-2.5 py-1 rounded-full"
+              className="text-xs font-medium px-3 py-1.5 rounded-full"
               style={{ background: `${accentColor}22`, color: accentColor }}
             >
               {severityLabel(analysis.confidence, isCritical)}
             </span>
+            <span style={{ color: "var(--text-muted)" }}>•</span>
             <span
-              className="text-xs font-medium px-2.5 py-1 rounded-full"
+              className="text-xs font-medium px-3 py-1.5 rounded-full"
               style={{ background: "var(--bg-elevated)", color: "var(--text-secondary)" }}
             >
               {analysis.confidence}% confidence

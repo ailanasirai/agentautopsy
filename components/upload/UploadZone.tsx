@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { motion } from "framer-motion";
-import { UploadCloud, FileJson } from "lucide-react";
+import { UploadCloud, FileJson, Clipboard } from "lucide-react";
 
 interface UploadZoneProps {
   onFileLoaded: (content: unknown) => void;
@@ -30,6 +30,31 @@ export default function UploadZone({ onFileLoaded, onError }: UploadZoneProps) {
     },
     [onFileLoaded, onError]
   );
+
+  const processPastedText = useCallback(
+    (text: string) => {
+      try {
+        const parsed = JSON.parse(text);
+        setFileName("Pasted trace.json");
+        onFileLoaded(parsed);
+      } catch {
+        onError("Clipboard content isn't valid JSON.");
+      }
+    },
+    [onFileLoaded, onError]
+  );
+
+  // Support pasting a JSON trace anywhere on the page with Ctrl+V
+  useEffect(() => {
+    function handlePaste(e: ClipboardEvent) {
+      const text = e.clipboardData?.getData("text");
+      if (text && text.trim().startsWith("{")) {
+        processPastedText(text);
+      }
+    }
+    window.addEventListener("paste", handlePaste);
+    return () => window.removeEventListener("paste", handlePaste);
+  }, [processPastedText]);
 
   return (
     <motion.div
@@ -87,6 +112,12 @@ export default function UploadZone({ onFileLoaded, onError }: UploadZoneProps) {
           </span>
           <span className="json-badge">.json</span>
         </div>
+        {!fileName && (
+          <div className="flex items-center gap-1.5 text-xs mt-1" style={{ color: "var(--text-muted)" }}>
+            <Clipboard size={12} />
+            or paste JSON anywhere with Ctrl+V
+          </div>
+        )}
       </motion.div>
     </motion.div>
   );
